@@ -1,0 +1,2 @@
+# bohrbytes
+homelab configs
