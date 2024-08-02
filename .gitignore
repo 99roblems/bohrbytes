@@ -1,8 +1,7 @@
 portainer/data
 *.env
 **/volumes/
-*.log
-
+*.logs
 *.tmp
 **/.ash_history
 *.pem
