@@ -1,0 +1,14 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
+title: bohrbytes dashboard
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
+
+base: https://homepage.local.robhagen.net
+
+background:
+  image: /images/backgrounds/F0ryWeA.jpeg

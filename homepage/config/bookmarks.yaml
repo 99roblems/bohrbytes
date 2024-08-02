@@ -1,0 +1,47 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/
+          icon: github.svg
+    - Router: 
+        - abbr: TL
+          href: http://network.robhagen.net
+          icon: tp-link.png
+    - DataAnnotation:
+        - abbr: DA
+          href: https://app.dataannotation.tech
+- Social:
+    - Reddit:
+        - abbr: RE
+          href: https://reddit.com/
+          icon: reddit.svg
+    - Instagram:
+        - abbe: IG
+          href: https://www.instagram.com
+          icon: instagram.svg
+    - imgur:
+        - abbr: IM
+          href: https://imgur.com
+          
+- Entertainment:
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com/
+          icon: youtube.svg
+    - Netflix:
+        - abbr: NF
+          href: https://netflix.com/
+          icon: netflix.svg
+    - Prime Video:
+        - abbr: PV
+          href: https://www.amazon.com/Amazon-Video/b?ie=UTF8&node=2858778011
+          icon: prime-video.png
+- Finance:
+    - Bank: 
+        - abbr: RF
+          href: https://www.rfstatebankonline2.com/home/home
+          

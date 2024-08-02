@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  syncthing:
+    image: linuxserver/syncthing
+    container_name: syncthing
+    environment:
+      - PUID=1000  # Set your user ID
+      - PGID=1000  # Set your group ID
+      - TZ=America/Chicago  # Set your timezone
+    hostname: bohrbytes
+    restart: unless-stopped
+    volumes:
+      - /home/rob/projects/docker/syncthing/config:/config
+      - /home/rob/resources/sync:/sync
+      - /home/rob/projects/docker/syncthing/test_sync1:/test_sync1
+      - /home/rob/projects/docker/syncthing/test_sync2:/test_sync2
+    ports:
+      - 8384:8384  # Web GUI
+      - 22000:22000/tcp  # Syncthing protocol
+      - 22000:22000/udp
+      - 21027:21027/udp
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.syncthing.rule=Host(`syncthing.local.robhagen.net`)"  # Replace with your domain
+      - "traefik.http.routers.syncthing.entrypoints=https"
+      #- "traefik.http.middlewares.syncthing-https-redirect.redirectscheme.scheme=https"
+      #- "traefik.http.routers.syncthing.middlewares=syncthing-https-redirect"
+      #- "traefik.http.routers.syncthing-secure.rule=Host(`syncthing.local.robhagen.net`)"
+      - "traefik.http.routers.syncthing.tls=true"
+      - "traefik.http.routers.syncthing.service=syncthing"
+      - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
+      #- "traefik.http.services.syncthing.loadbalancer.server.port=22000"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

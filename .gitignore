@@ -1,0 +1,11 @@
+portainer/data
+*.env
+**/volumes/
+*.log
+
+*.tmp
+**/.ash_history
+*.pem
+syncthing/index-v*.db/
+*.key
+**/index-v*.db/**

@@ -1,0 +1,47 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Data Science:
+    - JupyterLab:
+        href: http://jupyter.local.robhagen.net
+        description: jupyterLab environment
+        icon: jupyter.svg
+        server: my-docker 
+        container: jupyterlab
+
+- Server Admin:
+    - Pihole:
+        href: https://pihole.local.robhagen.net
+        description: local DNS server and ad-block
+        icon: pi-hole.svg
+        widget:
+          type: pihole
+          url: http://192.168.0.222:80
+          key: 88d71cc66316cf49c8bd68e663d14b08a094e96a6bef5ae2716ac7b321629cab
+    - Traefik:
+        href: https://dashboard.local.robhagen.net
+        description: reverse proxy management
+        icon: traefik.svg
+        server: my-docker
+        container: traefik
+        widget:
+          type: traefik
+          url: http://172.22.0.2:8080
+    - Portainer:
+        href: https://portainer.local.robhagen.net
+        description: local portainer environment
+        icon: portainer.svg
+        server: my-docker
+        container: portainer
+    - Syncthing:
+        href: https://syncthing.local.robhagen.net
+        description: network file sync tools
+        icon: syncthing.svg
+        server: my-docker
+        container: syncthing
+- Media:
+    - Plex:
+        href: http://localhost/
+        description: Homepage is 😎
+        icon: plex.svg

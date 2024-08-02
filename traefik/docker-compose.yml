@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      # - CF_DNS_API_TOKEN=YOUR_API_TOKEN
+      # If you choose to use an API Key instead of a Token, specify your email as well
+      # - BASIC_AUTH_USERS=rob:$$2y$$12$$8.p7JGuNlnEg.Y0x1kLtROhuU00uqVQoip1.OLhgPiCZZ9W7M55Iu
+      - CF_API_EMAIL=robert.hagen.11@gmail.com
+      - CF_API_KEY=aeabfbf33d10cb3811126866cbe67ce38a415
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/rob/projects/docker/traefik/data/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /home/rob/projects/docker/traefik/data/acme.json:/acme.json
+      - /home/rob/projects/docker/traefik/data/config:/config:ro
+      #- /home/rob/projects/docker/traefik/data/password.txt:/password.txt:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`dashboard.local.robhagen.net`)"
+      # - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=rob:$$2y$$12$$8.p7JGuNlnEg.Y0x1kLtROhuU00uqVQoip1.OLhgPiCZZ9W7M55Iu"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`dashboard.local.robhagen.net`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.robhagen.net"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.robhagen.net"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+networks:
+  proxy:
+    external: true

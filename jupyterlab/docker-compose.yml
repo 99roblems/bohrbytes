@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  jupyterlab:
+    container_name: jupyterlab
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.jupyterlab
+    restart: unless-stopped
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+    volumes:
+      - /home/rob/resources/sync/jupyter:/home/jovyan
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jupyter.entrypoints=http"
+      - "traefik.http.routers.jupyter.rule=Host(`jupyter.local.robhagen.net`)"
+      - "traefik.http.middlewares.jupyter-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.jupyter.middlewares=jupyter-https-redirect"
+      - "traefik.http.routers.jupyter-secure.rule=Host(`jupyter.local.robhagen.net`)"
+      - "traefik.http.routers.jupyter-secure.tls=true"
+      - "traefik.http.routers.jupyter-secure.service=jupyter"
+      - "traefik.http.services.jupyter.loadbalancer.server.port=8888"
+      - "traefik.docker.network=proxy"
+networks:
+  proxy:
+    external: true
