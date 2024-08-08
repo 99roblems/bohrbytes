@@ -24,7 +24,7 @@ providers:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: robert.hagen.11@gmail.com
+      email: ${CF_API_EMAIL}
       storage: acme.json
       dnsChallenge:
         provider: cloudflare

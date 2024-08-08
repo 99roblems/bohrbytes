@@ -8,3 +8,5 @@ portainer/data
 syncthing/index-v*.db/
 *.key
 **/index-v*.db/**
+office
+freecad
