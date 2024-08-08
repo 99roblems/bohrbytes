@@ -18,7 +18,7 @@
         widget:
           type: pihole
           url: http://192.168.0.222:80
-          key: 88d71cc66316cf49c8bd68e663d14b08a094e96a6bef5ae2716ac7b321629cab
+          key: ${PIHOLE_KEY}
     - Traefik:
         href: https://dashboard.local.robhagen.net
         description: reverse proxy management
