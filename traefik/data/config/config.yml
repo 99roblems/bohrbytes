@@ -27,7 +27,6 @@ http:
       rule: "Host(`nextcloud.local.robhagen.net`)"
       middlewares:
         - nextcloud-headers
-        - https-redirectscheme
       tls: {}
       service: nextcloud 
 #endregion
@@ -43,11 +42,6 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.0.222:80"
-        passHostHeader: true
-    nextcloud:
-      loadBalancer:
-        servers:
-          -url: "http://localhost:11000"
         passHostHeader: true
 #endregion
 
@@ -80,6 +74,8 @@ http:
         hostsProxyHeaders:
           - "X-Forwarded-Host"
         referrerPolicy: "same-origin"
+        customRequestHeaders:
+          X-Forwarded-Proto: https
     idrac:
       headers:
         frameDeny: true
