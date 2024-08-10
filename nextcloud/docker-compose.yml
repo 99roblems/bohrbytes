@@ -20,6 +20,7 @@ services:
       - APACHE_IP_BINDING=0.0.0.0
       - TALK_PORT=3478
       - NEXTCLOUD_MOUNT=/mnt/ncdata
+
 networks:
   proxy:
     external: true

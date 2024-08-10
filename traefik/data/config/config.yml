@@ -21,6 +21,15 @@ http:
         - https-redirectscheme
       tls: {}
       service: pihole 
+    nextcloud:
+      rule: "Host(`nextcloud.local.robhagen.net`)"
+      entryPoints:
+        - "https"
+      service: nextcloud
+      middlewares:
+        - nextcloud-chain:
+      tls:
+        certificatesResolvers: "cloudflare"
 #endregion
 
 #region services
@@ -35,24 +44,27 @@ http:
         servers:
           - url: "http://192.168.0.222:80"
         passHostHeader: true
-    nextcloud-headers:
+    nextcloud:
       loadBalancer:
         servers:  
-          - url: "http://nextcloud-aio-mastercontainer:11000"
+          - url: "http://localhost:11000"
 #endregion
 
   middlewares:
     addprefix-pihole:
       addPrefix:
         prefix: "/admin"
+
     https-redirectscheme:
       redirectScheme:
         scheme: https
         permanent: true
+
     redirectregex-pihole:
       redirectRegex:
         regex: "/admin/(.*)"
         replacement: /
+    
     default-headers:
       headers:
         frameDeny: true
@@ -65,6 +77,7 @@ http:
         customFrameOptionsValue: SAMEORIGIN
         customRequestHeaders:
           X-Forwarded-Proto: https
+    
     nextcloud-headers:
       headers:
         hostsProxyHeaders:
@@ -72,6 +85,7 @@ http:
         referrerPolicy: "same-origin"
         customRequestHeaders:
           X-Forwarded-Proto: https
+    
     idrac:
       headers:
         frameDeny: true
@@ -95,3 +109,9 @@ http:
         middlewares:
         - default-whitelist
         - default-headers
+
+    nextcloud-chain:
+      chain: 
+        middlewares:
+          - https-redirectscheme
+          - nextcloud-headers
