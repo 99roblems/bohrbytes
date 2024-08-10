@@ -43,6 +43,10 @@ http:
         servers:
           - url: "http://192.168.0.222:80"
         passHostHeader: true
+    nextcloud-headers:
+      loadBalancer:
+        servers:  
+          - url: "http://nextcloud-aio-mastercontainer:11000"
 #endregion
 
   middlewares:
