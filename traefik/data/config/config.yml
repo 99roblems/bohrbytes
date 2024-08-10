@@ -20,15 +20,7 @@ http:
         - addprefix-pihole
         - https-redirectscheme
       tls: {}
-      service: pihole
-    nextcloud:
-      entryPoints:
-        - "https"
-      rule: "Host(`nextcloud.local.robhagen.net`)"
-      middlewares:
-        - nextcloud-headers
-      tls: {}
-      service: nextcloud 
+      service: pihole 
 #endregion
 
 #region services
