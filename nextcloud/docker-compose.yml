@@ -20,21 +20,6 @@ services:
       - APACHE_IP_BINDING=0.0.0.0
       - TALK_PORT=3478
       - NEXTCLOUD_MOUNT=/mnt/ncdata
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud-aio.entrypoints=https"
-      - "traefik.http.routers.nextcloud-aio.rule=Host(`nextcloud.local.robhagen.net`)"
-      - "traefik.http.routers.nextcloud-aio.tls=true"
-      - "traefik.http.services.nextcloud-aio.loadbalancer.server.port=11000"
-      - "traefik.docker.network=proxy"
-      - "traefik.http.middlewares.nextcloud-aio-headers.headers.customRequestHeaders.X-Forwarded-Proto=https"
-      - "traefik.http.middlewares.nextcloud-aio-headers.headers.referrerPolicy=same-origin"
-      - "traefik.http.routers.nextcloud-aio.middlewares=nextcloud-aio-headers"
-     # setup route
-      - "traefik.http.routers.nextcloud-aio-setup.rule=Host(`nextcloud-setup.local.robhagen.net`)"
-      - "traefik.http.routers.nextcloud-aio-setup.entrypoints=https"
-      - "traefik.http.routers.nextcloud-aio-setup.tls=true"
-      - "traefik.http.services.nextcloud-aio-setup.loadbalancer.server.port=8080"
 networks:
   proxy:
     external: true
