@@ -11,6 +11,7 @@ services:
       - /tank/nextcloud:/mnt/ncdata
     ports:
       - 8080:8080
+      - 127.0.0.1:11000:11000
     networks:
       - proxy
     environment:
