@@ -10,22 +10,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /tank/nextcloud:/mnt/ncdata
     ports:
-      - 8080:8080
+      - 127.0.0.1:11000:11000
     networks:
       - proxy
-      - default
     environment:
       - NEXTCLOUD_DATADIR=/mnt/ncdata
       - APACHE_PORT=11000
       - APACHE_IP_BINDING=0.0.0.0
-      - TALK_PORT=3478
-      - NEXTCLOUD_MOUNT=/mnt/ncdata
+      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.local.robhagen.net
+      - TRUSTED_PROXIES=172.22.0.0/16
 
 networks:
   proxy:
     external: true
-  default:
-    driver: bridge
 
 volumes:
   nextcloud_aio_mastercontainer:

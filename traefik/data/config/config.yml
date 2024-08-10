@@ -1,15 +1,6 @@
 http:
  #region routers 
   routers:
-    proxmox:
-      entryPoints:
-        - "https"
-      rule: "Host(`proxmox.local.example.com`)"
-      middlewares:
-        - default-headers
-        - https-redirectscheme
-      tls: {}
-      service: proxmox
     pihole:
       entryPoints:
         - "https"
@@ -28,17 +19,11 @@ http:
       service: nextcloud
       middlewares:
         - nextcloud-chain:
-      tls:
-        certificatesResolvers: "cloudflare"
+      tls: {}
 #endregion
 
 #region services
   services:
-    proxmox:
-      loadBalancer:
-        servers:
-          - url: "https://192.168.0.100:8006"
-        passHostHeader: true
     pihole:
       loadBalancer:
         servers:
@@ -80,11 +65,12 @@ http:
     
     nextcloud-headers:
       headers:
-        hostsProxyHeaders:
-          - "X-Forwarded-Host"
-        referrerPolicy: "same-origin"
         customRequestHeaders:
-          X-Forwarded-Proto: https
+          X-Forwarded-Proto: "https"
+        stsSeconds: 15552000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        forceSTSHeader: true
     
     idrac:
       headers:
