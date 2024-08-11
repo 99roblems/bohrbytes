@@ -6,11 +6,13 @@ services:
     container_name: nextcloud-aio-mastercontainer
     restart: always
     volumes:
-      - nextcloud-aio-mastercontainer:/mnt/docker-aio-config
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /tank/nextcloud:/mnt/ncdata
     ports:
       - 8080:8080
+      - 80:80
+      - 8443:8443
     networks:
       - proxy
     environment:
@@ -25,3 +27,4 @@ networks:
 
 volumes:
   nextcloud_aio_mastercontainer:
+    name: nextcloud_aio_mastercontainer
