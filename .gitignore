@@ -11,3 +11,4 @@ syncthing/index-v*.db/
 office
 freecad
 .DS_Store
+*.log
