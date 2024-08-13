@@ -1,3 +1,9 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+log: 
+  level: INFO
+  filepath: /home/rob/projects/docker/traefik/traefik.log
 api:
   dashboard: true
   debug: true

@@ -1,25 +1,20 @@
-version: '3'
+version: '3.8'
 
 services:
   nextcloud-aio-mastercontainer:
     image: nextcloud/all-in-one:latest
     container_name: nextcloud-aio-mastercontainer
-    restart: always
+    restart: unless-stopped
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /tank/nextcloud:/mnt/ncdata
     ports:
       - 8080:8080
-      - 80:80
-      - 8443:8443
     networks:
       - proxy
     environment:
-      - NEXTCLOUD_DATADIR=/mnt/ncdata
+      - NEXTCLOUD_DATADIR=/tank/nextcloud
       - APACHE_PORT=11000
-      - APACHE_IP_BINDING=0.0.0.0
-      - SKIP_DOMAIN_VALIDATION=true
 
 networks:
   proxy:

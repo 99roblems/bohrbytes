@@ -19,7 +19,9 @@ http:
       service: nextcloud
       middlewares:
         - nextcloud-chain:
-      tls: {}
+      tls:
+        domains:
+          - main: "nextcloud.local.robhagen.net"
 #endregion
 
 #region services
@@ -31,8 +33,8 @@ http:
         passHostHeader: true
     nextcloud:
       loadBalancer:
-        servers:  
-          - url: "http://localhost:11000"
+        servers:
+          - url: "http://192.168.0.220:11000"
 #endregion
 
   middlewares:
@@ -49,7 +51,6 @@ http:
       redirectRegex:
         regex: "/admin/(.*)"
         replacement: /
-    
     default-headers:
       headers:
         frameDeny: true
@@ -62,16 +63,18 @@ http:
         customFrameOptionsValue: SAMEORIGIN
         customRequestHeaders:
           X-Forwarded-Proto: https
-    
     nextcloud-headers:
       headers:
+        hostsProxyHeaders:
+          - "X-Forwarded-Host"
+        referrerPolicy: "same-origin"
         customRequestHeaders:
           X-Forwarded-Proto: "https"
+          X-Robot-Tag: "none"
         stsSeconds: 15552000
         stsIncludeSubdomains: true
         stsPreload: true
         forceSTSHeader: true
-    
     idrac:
       headers:
         frameDeny: true
