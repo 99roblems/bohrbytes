@@ -1,0 +1,129 @@
+version: '3'
+
+services:
+  wireguard:
+      image: linuxserver/wireguard
+      cap_add:
+        - NET_ADMIN
+        - SYS_MODULE
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=America/Chicago
+        - SERVERURL=wireguard.example.com #optional
+        - SERVERPORT=51820 #optional
+        - PEERS=1 #optional
+        - PEERDNS=auto #optional
+        - INTERNAL_SUBNET=10.13.13.0 #optional
+      volumes:
+        - /path/to/wireguard/config:/config
+        - /lib/modules:/lib/modules
+      ports:
+        - 51820:51820/udp
+      sysctls:
+        - net.ipv4.conf.all.src_valid_mark=1
+      restart: unless-stopped
+      networks:
+        - proxy
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    network_mode: "service:wireguard"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - /path/to/config:/config
+      - /path/to/downloads:/downloads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
+      - "traefik.http.routers.qbittorrent.entrypoints=websecure"
+      - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"  # Default qBittorrent WebUI port
+    networks:
+      - proxy
+  sonarr:
+    image: linuxserver/sonarr
+    network_mode: "service:wireguard"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /path/to/sonarr/config:/config
+      - /path/to/media:/media
+      - /path/to/downloads:/downloads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)"
+      - "traefik.http.routers.sonarr.entrypoints=websecure"
+      - "traefik.http.routers.sonarr.tls.certresolver=myresolver"
+    networks:
+      - proxy
+  radarr:
+    image: linuxserver/radarr
+    network_mode: "service:wireguard"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /path/to/radarr/config:/config
+      - /path/to/media:/media
+      - /path/to/downloads:/downloads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)"
+      - "traefik.http.routers.radarr.entrypoints=websecure"
+      - "traefik.http.routers.radarr.tls.certresolver=myresolver"
+    networks:
+      - proxy
+
+  lidarr:
+    image: linuxserver/lidarr
+    network_mode: "service:wireguard"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /path/to/lidarr/config:/config
+      - /path/to/music:/music
+      - /path/to/downloads:/downloads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN}`)"
+      - "traefik.http.routers.lidarr.entrypoints=websecure"
+      - "traefik.http.routers.lidarr.tls.certresolver=myresolver"
+    networks:
+      - proxy 
+
+  overseerr:
+    image: linuxserver/overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /path/to/overseerr/config:/config
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.overseerr.rule=Host(`overseerr.${DOMAIN}`)"
+      - "traefik.http.routers.overseerr.entrypoints=websecure"
+      - "traefik.http.routers.overseerr.tls.certresolver=myresolver"
+    networks:
+      - proxy
+
+
+# ... (other services with similar label updates)
+
+networks:
+  proxy:
+    external: true
