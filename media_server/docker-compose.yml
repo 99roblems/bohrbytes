@@ -16,15 +16,13 @@ services:
         - PEERDNS=auto #optional
         - INTERNAL_SUBNET=10.13.13.0 #optional
       volumes:
-        - /path/to/wireguard/config:/config
+        - ${FOLDER_FOR_DOCKER_DATA}/wireguard:/config
         - /lib/modules:/lib/modules
       ports:
         - 51820:51820/udp
       sysctls:
         - net.ipv4.conf.all.src_valid_mark=1
       restart: unless-stopped
-      networks:
-        - proxy
 
   qbittorrent:
     image: linuxserver/qbittorrent
@@ -32,10 +30,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=${TZ}
+      - TZ=America/Chicago
     volumes:
-      - /path/to/config:/config
-      - /path/to/downloads:/downloads
+      - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
+      - ${FOLDER_FOR_MEDIA}/data/torrents:/data
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -43,19 +41,16 @@ services:
       - "traefik.http.routers.qbittorrent.entrypoints=websecure"
       - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"  # Default qBittorrent WebUI port
-    networks:
-      - proxy
+
   sonarr:
     image: linuxserver/sonarr
-    network_mode: "service:wireguard"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - /path/to/sonarr/config:/config
-      - /path/to/media:/media
-      - /path/to/downloads:/downloads
+      - ${FOLDER_FOR_DOCKER_DATA}/sonarr:/config
+      - ${FOLDER_FOR_MEDIA}:/data
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -64,17 +59,16 @@ services:
       - "traefik.http.routers.sonarr.tls.certresolver=myresolver"
     networks:
       - proxy
+
   radarr:
     image: linuxserver/radarr
-    network_mode: "service:wireguard"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - /path/to/radarr/config:/config
-      - /path/to/media:/media
-      - /path/to/downloads:/downloads
+      - ${FOLDER_FOR_DOCKER_DATA}/radarr:/config
+      - ${FOLDER_FOR_MEDIA}:/data
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -86,15 +80,13 @@ services:
 
   lidarr:
     image: linuxserver/lidarr
-    network_mode: "service:wireguard"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - /path/to/lidarr/config:/config
-      - /path/to/music:/music
-      - /path/to/downloads:/downloads
+      - ${FOLDER_FOR_DOCKER_DATA}/lidarr:/config
+      - ${FOLDER_FOR_MEDIA}:/data
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -104,14 +96,16 @@ services:
     networks:
       - proxy 
 
+
   overseerr:
     image: linuxserver/overseerr
+    network_mode: "service:wireguard"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
     volumes:
-      - /path/to/overseerr/config:/config
+      - ${FOLDER_FOR_DOCKER_DATA}/overseerr:/config
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -121,7 +115,25 @@ services:
     networks:
       - proxy
 
-
+  prowlarr:
+      image: linuxserver/prowlarr:develop
+      container_name: prowlarr
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=America/Chicago
+      volumes:
+        - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
+      ports:
+        - 9696:9696
+      restart: unless-stopped
+      network_mode: "service:wireguard"
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
+        - "traefik.http.routers.prowlarr.entrypoints=websecure"
+        - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+        - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
 # ... (other services with similar label updates)
 
 networks:

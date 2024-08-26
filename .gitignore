@@ -12,3 +12,4 @@ office
 freecad
 .DS_Store
 *.log
+.vscode
