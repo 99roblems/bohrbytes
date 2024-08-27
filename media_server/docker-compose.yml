@@ -60,7 +60,7 @@ services:
       - TP_THEME=${TP_THEME:?err}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
-      - ${FOLDER_FOR_MEDIA}/data/torrents:/data
+      - ${FOLDER_FOR_MEDIA}:/data
     depends_on:
       - gluetun
     restart: unless-stopped
