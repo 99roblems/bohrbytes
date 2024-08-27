@@ -12,7 +12,7 @@ services:
       - "8388:8388/udp"                         # Gluetun Local Network Shadowsocks
       - "${WEBUI_PORT_QBITTORRENT:?err}:${WEBUI_PORT_QBITTORRENT:?err}"   # WebUI Portal: qBittorrent
       - "${QBIT_PORT:?err}:6881"                # Transmission Torrent Port
-      - "${WEBUI_PORT_PROWLARR:?err}:9696"      # Prowlarr WebUI
+
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA:?err}/gluetun:/gluetun
     environment:
@@ -36,13 +36,6 @@ services:
       - "traefik.http.routers.qbittorrent-secure.tls=true"
       - "traefik.http.routers.qbittorrent-secure.service=qbittorrent"
       - "traefik.http.services.qbittorrent.loadbalancer.server.port=8200"
-      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
-      - "traefik.http.routers.prowlarr.entrypoints=http"
-      - "traefik.http.routers.prowlarr.middlewares=https-redirectscheme@file"
-      - "traefik.http.routers.prowlarr-secure.rule=Host(`prowlarr.${DOMAIN}`)"
-      - "traefik.http.routers.prowlarr-secure.tls=true"
-      - "traefik.http.routers.prowlarr-secure.service=prowlarr"
-      - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
     networks:
       - proxy
 
@@ -171,20 +164,27 @@ services:
       - proxy
 
   prowlarr:
-      image: linuxserver/prowlarr:develop
-      container_name: prowlarr
-      environment:
-        - PUID=${PUID}
-        - PGID=${PGID}
-        - TZ=${TIMEZONE}
-        - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:prowlarr
-        - TP_THEME=${TP_THEME:?err}
-      volumes:
-        - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
-      depends_on:
-        - gluetun
-      restart: unless-stopped
-      network_mode: "service:gluetun"
+    image: linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:prowlarr
+      - TP_THEME=${TP_THEME:?err}
+    volumes:
+      - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
+    ports:
+      - "${WEBUI_PORT_PROWLARR:?err}:9696"      # Prowlarr WebUI
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
+      - "traefik.http.routers.prowlarr.entrypoints=http"
+      - "traefik.http.routers.prowlarr.middlewares=https-redirectscheme@file"
+      - "traefik.http.routers.prowlarr-secure.rule=Host(`prowlarr.${DOMAIN}`)"
+      - "traefik.http.routers.prowlarr-secure.tls=true"
+      - "traefik.http.routers.prowlarr-secure.service=prowlarr"
+      - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
 
 networks:
   proxy:
