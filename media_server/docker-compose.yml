@@ -40,7 +40,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
-      - "traefik.http.routers.qbittorrent.entrypoints=websecure"
+      - "traefik.http.routers.qbittorrent.entrypoints=http"
       - "traefik.http.routers.qbittorrent.tls.certresolver=cloudflare"
       
   sonarr:
@@ -57,7 +57,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)"
-      - "traefik.http.routers.sonarr.entrypoints=websecure"
+      - "traefik.http.routers.sonarr.entrypoints=http"
       - "traefik.http.routers.sonarr.tls.certresolver=cloudflare"
     networks:
       - proxy
@@ -76,7 +76,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)"
-      - "traefik.http.routers.radarr.entrypoints=websecure"
+      - "traefik.http.routers.radarr.entrypoints=http"
       - "traefik.http.routers.radarr.tls.certresolver=cloudflare"
     networks:
       - proxy
@@ -114,7 +114,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.overseerr.rule=Host(`overseerr.${DOMAIN}`)"
-      - "traefik.http.routers.overseerr.entrypoints=websecure"
+      - "traefik.http.routers.overseerr.entrypoints=http"
       - "traefik.http.routers.overseerr.tls.certresolver=cloudflare"
     networks:
       - proxy
@@ -133,7 +133,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
-        - "traefik.http.routers.prowlarr.entrypoints=websecure"
+        - "traefik.http.routers.prowlarr.entrypoints=http"
         - "traefik.http.routers.prowlarr.tls.certresolver=cloudflare"
         - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
 # ... (other services with similar label updates)
