@@ -36,6 +36,8 @@ services:
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
       - ${FOLDER_FOR_MEDIA}/data/torrents:/data
+    depends_on:
+      - wireguard
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -147,6 +149,8 @@ services:
         - TZ=America/Chicago
       volumes:
         - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
+      depends_on:
+        - wireguard
       restart: unless-stopped
       network_mode: "service:wireguard"
       labels:
@@ -154,11 +158,10 @@ services:
         - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
         - "traefik.http.routers.prowlarr.entrypoints=http"
         - "traefik.http.routers.prowlarr.middlewares=https-redirectscheme@file"
-        - "traefik.http.routers.prowlarr-secure.rule=Host(`overseerr.${DOMAIN}`)"
+        - "traefik.http.routers.prowlarr-secure.rule=Host(`prowlarr.${DOMAIN}`)"
         - "traefik.http.routers.prowlarr-secure.tls=true"
         - "traefik.http.routers.prowlarr-secure.service=prowlarr"
         - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
-# ... (other services with similar label updates)
 
 networks:
   proxy:
