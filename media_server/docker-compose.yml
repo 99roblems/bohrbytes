@@ -9,8 +9,8 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=mullvad
       - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=OMWw1mAW4UkViWewUPac86YmfFgxSHQx+M8ZZPGiVXA=
-      - WIREGUARD_ADDRESSES=10.71.224.145/32
+      - WIREGUARD_PRIVATE_KEY=${VPN_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${VPN_IP}
 #      - SERVER_COUNTRIES=Sweden, Netherlands
       - SERVER_CITIES=Stockholm
 
