@@ -26,7 +26,21 @@ services:
       - SERVER_CITIES=${SERVER_CITIES}
       - HTTPPROXY=on
       - SHADOWSOCKS=on
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbit.local.robhagen.net`)"
+      - "traefik.http.routers.qbittorrent.entrypoints=https"
+      - "traefik.http.routers.qbittorrent.tls=true"
+      - "traefik.http.routers.qbittorrent.tls.certresolver=cloudflare"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+      - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
+      - "traefik.http.routers.prowlarr.entrypoints=https"
+      - "traefik.http.routers.prowlarr.tls=true"
+      - "traefik.http.routers.prowlarr.tls.certresolver=cloudflare"
+      - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
+    networks:
+      - proxy
+      
   qbittorrent:
     image: linuxserver/qbittorrent
     container_name: qbit
@@ -45,14 +59,7 @@ services:
     depends_on:
       - gluetun
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbit.local.robhagen.net`)"
-      - "traefik.http.routers.qbittorrent.entrypoints=https"
-      - "traefik.http.routers.qbittorrent.tls=true"
-      - "traefik.http.routers.qbittorrent.tls.certresolver=cloudflare"
-      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-      
+
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
@@ -175,15 +182,6 @@ services:
         - gluetun
       restart: unless-stopped
       network_mode: "service:gluetun"
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
-        - "traefik.http.routers.prowlarr.entrypoints=http"
-        - "traefik.http.routers.prowlarr.middlewares=https-redirectscheme@file"
-        - "traefik.http.routers.prowlarr-secure.rule=Host(`prowlarr.${DOMAIN}`)"
-        - "traefik.http.routers.prowlarr-secure.tls=true"
-        - "traefik.http.routers.prowlarr-secure.service=prowlarr"
-        - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
 
 networks:
   proxy:
