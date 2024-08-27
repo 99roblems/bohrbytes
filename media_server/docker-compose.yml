@@ -13,7 +13,7 @@ services:
       - "${WEBUI_PORT_QBITTORRENT:?err}:${WEBUI_PORT_QBITTORRENT:?err}"   # WebUI Portal: qBittorrent
       - "${QBIT_PORT:?err}:6881"                # Transmission Torrent Port
     volumes:
-      - ${FOLDER_FOR_DATA:?err}/gluetun:/gluetun
+      - ${FOLDER_FOR_DOCKER_DATA:?err}/gluetun:/gluetun
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
