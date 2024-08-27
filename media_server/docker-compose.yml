@@ -17,7 +17,7 @@ services:
   qbittorrent:
     image: linuxserver/qbittorrent
     container_name: qbit
-    network_mode: "service:wireguard"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -141,7 +141,7 @@ services:
       depends_on:
         - wireguard
       restart: unless-stopped
-      network_mode: "service:wireguard"
+      network_mode: "service:gluetun"
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
