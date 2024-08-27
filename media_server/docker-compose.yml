@@ -26,7 +26,7 @@ services:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
       - ${FOLDER_FOR_MEDIA}/data/torrents:/data
     depends_on:
-      - wireguard
+      - gluetun
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -139,7 +139,7 @@ services:
       volumes:
         - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
       depends_on:
-        - wireguard
+        - gluetun
       restart: unless-stopped
       network_mode: "service:gluetun"
       labels:
