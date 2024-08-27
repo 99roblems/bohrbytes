@@ -11,8 +11,8 @@ services:
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=OMWw1mAW4UkViWewUPac86YmfFgxSHQx+M8ZZPGiVXA=
       - WIREGUARD_ADDRESSES=10.71.224.145/32
-      #- SERVER_COUNTRIES=Sweden, Netherlands
-      #- SERVER_CITIES=Stockholm, Amsterdam
+#      - SERVER_COUNTRIES=Sweden, Netherlands
+      - SERVER_CITIES=Stockholm
 
   qbittorrent:
     image: linuxserver/qbittorrent
