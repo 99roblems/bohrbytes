@@ -39,9 +39,11 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
-      - "traefik.http.routers.qbittorrent.entrypoints=http"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbit.local.robhagen.net`)"
+      - "traefik.http.routers.qbittorrent.entrypoints=https"
+      - "traefik.http.routers.qbittorrent.tls=true"
       - "traefik.http.routers.qbittorrent.tls.certresolver=cloudflare"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
       
   sonarr:
     image: linuxserver/sonarr
@@ -125,6 +127,7 @@ services:
       - "traefik.http.routers.overseerr.rule=Host(`overseerr.${DOMAIN}`)"
       - "traefik.http.routers.overseerr.entrypoints=http"
       - "traefik.http.routers.overseerr.tls.certresolver=cloudflare"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=5055"
     networks:
       - proxy
 
