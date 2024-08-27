@@ -75,16 +75,6 @@ http:
         stsIncludeSubdomains: true
         stsPreload: true
         forceSTSHeader: true
-    idrac:
-      headers:
-        frameDeny: true
-        browserXssFilter: true
-        forceSTSHeader: true
-        stsIncludeSubdomains: true
-        stsSeconds: 15552000
-        customFrameOptionsValue: SAMEORIGIN
-        customRequestHeaders:
-          X-Forwarded-Proto: https
 
     default-whitelist:
       ipWhiteList:
