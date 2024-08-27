@@ -50,6 +50,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
+    ports:
+      - 8989:8989
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/sonarr:/config
       - ${FOLDER_FOR_MEDIA}:/data
@@ -69,6 +71,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
+    ports:
+      - 7878:7878
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/radarr:/config
       - ${FOLDER_FOR_MEDIA}:/data
@@ -88,6 +92,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
+    ports:
+      - 8686:8686
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/lidarr:/config
       - ${FOLDER_FOR_MEDIA}:/data
