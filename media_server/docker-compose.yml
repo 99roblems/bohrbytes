@@ -19,9 +19,9 @@ services:
     container_name: qbit
     network_mode: "service:gluetun"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
       - ${FOLDER_FOR_MEDIA}/data/torrents:/data
@@ -40,9 +40,9 @@ services:
     image: linuxserver/sonarr
     container_name: sonarr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
     ports:
       - 8989:8989
     volumes:
@@ -65,9 +65,9 @@ services:
     image: linuxserver/radarr
     container_name: radarr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/radarr:/config
       - ${FOLDER_FOR_MEDIA}:/data
@@ -88,9 +88,9 @@ services:
     image: linuxserver/lidarr
     container_name: lidarr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/lidarr:/config
       - ${FOLDER_FOR_MEDIA}:/data
@@ -111,9 +111,9 @@ services:
     image: linuxserver/overseerr
     container_name: overseerr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/overseerr:/config
     restart: unless-stopped
@@ -133,9 +133,9 @@ services:
       image: linuxserver/prowlarr:develop
       container_name: prowlarr
       environment:
-        - PUID=1000
-        - PGID=1000
-        - TZ=America/Chicago
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - TZ=${TIMEZONE}
       volumes:
         - ${FOLDER_FOR_DOCKER_DATA}/prowlarr:/config
       depends_on:
