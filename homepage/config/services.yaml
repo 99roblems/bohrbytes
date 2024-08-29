@@ -42,6 +42,32 @@
         container: syncthing
 - Media:
     - Plex:
-        href: http://localhost/
+        href: http://plex.local.robhagen.net/
         description: Homepage is 😎
         icon: plex.svg
+        server: my-docker
+        container: plex
+    - Sonarr:
+        href: https://sonarr.local.robhagen.net/
+        description: series management
+        icon: sonarr.svg
+        server: my-docker
+        container: sonarr
+    - Radarr:
+        href: https://radarr.local.robhagen.net/
+        description: movie management
+        icon: radarr.svg
+        server: my-docker
+        container: radarr
+    - Lidarr:
+        href: https://lidarr.local.robhagen.net/
+        description: movie management
+        icon: lidarr.svg
+        server: my-docker
+        container: lidarr
+    - Prowlarr:
+        href: https://192.168.0.220:9696/
+        description: request management
+        icon: prowlarr.svg
+        server: my-docker
+        container: prowlarr
