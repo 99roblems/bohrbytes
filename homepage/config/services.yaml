@@ -40,6 +40,7 @@
         icon: syncthing.svg
         server: my-docker
         container: syncthing
+
 - Media:
     - Plex:
         href: http://plex.local.robhagen.net/
@@ -61,7 +62,7 @@
         container: radarr
     - Lidarr:
         href: https://lidarr.local.robhagen.net/
-        description: movie management
+        description: music management
         icon: lidarr.svg
         server: my-docker
         container: lidarr
@@ -71,3 +72,11 @@
         icon: prowlarr.svg
         server: my-docker
         container: prowlarr
+
+- Cloud Tools:
+    - NextCloud:
+        href: https://nextcloud.local.robhagen.net/
+        description: cloud file suite
+        icon: nextcloud.svg
+        server: my-docker
+        container: nextcloud-aio-nextcloud
