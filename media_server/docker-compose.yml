@@ -191,6 +191,15 @@ services:
       - TZ=${TIMEZONE:?err}
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.plex.rule=Host(`plex.${DOMAIN}`)"
+      - "traefik.http.routers.plex.entrypoints=http"
+      - "traefik.http.routers.plex.middlewares=https-redirectscheme@file"
+      - "traefik.http.routers.plex-secure.rule=Host(`plex.${DOMAIN}`)"
+      - "traefik.http.routers.plex-secure.tls=true"
+      - "traefik.http.routers.plex-secure.service=plex"
+      - "traefik.http.services.plex.loadbalancer.server.port=32400"
     networks:
       - proxy
 
