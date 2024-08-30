@@ -151,7 +151,7 @@ services:
       - ${FOLDER_FOR_MEDIA}/usenet:/downloads #optional
       - ${FOLDER_FOR_MEDIA}/usenet/incomplete:/incomplete-downloads #optional
     ports:
-      - ${WEBUI_PORT_SABNZBD}:8100
+      - ${WEBUI_PORT_SABNZBD}:8080
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
