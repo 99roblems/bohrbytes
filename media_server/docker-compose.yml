@@ -145,6 +145,7 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
+      - UMASK=${UMASK:?err}
       - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/sabnzbd:/config
