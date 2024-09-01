@@ -53,7 +53,7 @@ services:
       - TP_THEME=${TP_THEME:?err}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
-      - ${FOLDER_FOR_MEDIA}/torrents:/data
+      - ${FOLDER_FOR_MEDIA}/torrents:/data/torrents
     depends_on:
       - gluetun
     restart: unless-stopped
@@ -148,7 +148,7 @@ services:
       - TZ=${TIMEZONE}
     volumes:
       - ${FOLDER_FOR_DOCKER_DATA}/sabnzbd:/config
-      - ${FOLDER_FOR_MEDIA}/usenet:/data #optional
+      - ${FOLDER_FOR_MEDIA}/usenet:/data/usenet
     ports:
       - ${WEBUI_PORT_SABNZBD}:8080
     restart: unless-stopped
@@ -227,7 +227,6 @@ services:
       - "traefik.http.services.plex.loadbalancer.server.port=32400"
     networks:
       - proxy
-
 
   prowlarr:
     image: linuxserver/prowlarr:develop
