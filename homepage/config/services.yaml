@@ -2,6 +2,20 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/services
 
+Media:
+    - Plex:
+        href: http://plex.local.robhagen.net/
+        description: Homepage is 😎
+        icon: plex.svg
+        server: my-docker
+        container: plex
+    - Overseer:
+        href: http://overseerr.local.robhagen.net/
+        description: Request your shows and media!
+        icon: overseerr.svg 
+        server: my-docker
+        container: overseerr
+        
 - Data Science:
     - JupyterLab:
         href: http://jupyter.local.robhagen.net
@@ -41,13 +55,8 @@
         server: my-docker
         container: syncthing
 
-- Media:
-    - Plex:
-        href: http://plex.local.robhagen.net/
-        description: Homepage is 😎
-        icon: plex.svg
-        server: my-docker
-        container: plex
+- 
+- Stack Admin:
     - Sonarr:
         href: https://sonarr.local.robhagen.net/
         description: series management
