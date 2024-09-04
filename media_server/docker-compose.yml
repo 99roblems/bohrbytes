@@ -254,6 +254,30 @@ services:
     networks:
       - proxy
 
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    restart: unless-stopped
+    volumes:
+      - ${FOLDER_FOR_DOCKER_DATA:?err}/readarr:/config
+      - ${FOLDER_FOR_MEDIA:?err}:/data
+    environment:
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TIMEZONE:?err}
+      - DOCKER_MODS=ghcr.io/themepark-dev/theme.park:readarr
+      - TP_THEME=${TP_THEME:?err}
+    labels:
+      - "traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN}`)"
+      - "traefik.http.routers.readarr.entrypoints=http"
+      - "traefik.http.routers.readarr.middlewares=https-redirectscheme@file"
+      - "traefik.http.routers.readarr-secure.rule=Host(`readarr.${DOMAIN}`)"
+      - "traefik.http.routers.readarr-secure.tls=true"
+      - "traefik.http.routers.readarr-secure.service=readarr"
+      - "traefik.http.services.readarr.loadbalancer.server.port=8787"
+    networks:
+      - proxy
+
 networks:
   proxy:
     external: true
