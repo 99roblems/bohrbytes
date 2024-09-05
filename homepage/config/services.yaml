@@ -86,13 +86,16 @@
             url: http://192.168.0.220:7878
             key: a905325db59743088fe7993af6b6d07a
             enableQueue: false # optional, defaults to false
-
     - Lidarr:
         href: https://lidarr.local.robhagen.net/
         description: music management
         icon: lidarr.svg
         server: my-docker
         container: lidarr
+        widget:
+            type: lidarr
+            url: http://192.168.0.220:8686
+            key: 1571648254c94b81b75adef85d7d089a
     - Prowlarr:
         href: https://192.168.0.220:9696/
         description: request management
