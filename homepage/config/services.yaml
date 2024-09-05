@@ -62,6 +62,12 @@
         icon: sonarr.svg
         server: my-docker
         container: sonarr
+        widget:
+            type: radarr
+            url: https://sonarr.local.robhagen.net/
+            key: 649cff2a58214e7a931f54a340a37e3e
+            enableQueue: true # optional, defaults to false
+
     - Radarr:
         href: https://radarr.local.robhagen.net/
         description: movie management
