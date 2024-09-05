@@ -161,7 +161,7 @@ services:
       - "traefik.http.routers.sabnzbd-secure.rule=Host(`sabnzbd.${DOMAIN}`)"
       - "traefik.http.routers.sabnzbd-secure.tls=true"
       - "traefik.http.routers.sabnzbd-secure.service=nzbget"
-      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8686"
+      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8100"
     networks:
       - proxy
   
