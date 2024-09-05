@@ -12,14 +12,17 @@
         widget:
             type: plex
             url: http://192.168.0.220:32400
-            key: ${PLEX_TOKEN}
+            key: 6fwwMKVwUCpT72kuy_pB
     - Overseer:
         href: http://overseerr.local.robhagen.net/
         description: Request your shows and media!
         icon: overseerr.svg 
         server: my-docker
         container: overseerr
-
+        widget: 
+            type: overseerr
+            url: http://192.168.0.220:5055
+            key: MTcyNDcxMTIwNTg4MzI0MDYxMTU3LTA3YTctNDIxNC05MDk0LTE0ZjQxMDcwOWRmOA==
 - Data Science:
     - JupyterLab:
         href: http://jupyter.local.robhagen.net
@@ -34,9 +37,9 @@
         description: local DNS server and ad-block
         icon: pi-hole.svg
         widget:
-          type: pihole
-          url: http://192.168.0.222
-          key: ${PIHOLE_KEY}
+            type: pihole
+            url: http://192.168.0.222
+            key: 88d71cc66316cf49c8bd68e663d14b08a094e96a6bef5ae2716ac7b321629cabd
     - Traefik:
         href: https://dashboard.local.robhagen.net
         description: reverse proxy management
@@ -44,8 +47,8 @@
         server: my-docker
         container: traefik
         widget:
-          type: traefik
-          url: http://traefik:8080
+            type: traefik
+            url: http://traefik:8080
     - Portainer:
         href: https://portainer.local.robhagen.net
         description: local portainer environment
@@ -70,7 +73,7 @@
             type: sonarr
             url: http://192.168.0.220:8989
             key: 649cff2a58214e7a931f54a340a37e3e
-            enableQueue: true # optional, defaults to false
+            enableQueue: false # optional, defaults to false
 
     - Radarr:
         href: https://radarr.local.robhagen.net/
@@ -81,8 +84,8 @@
         widget:
             type: radarr
             url: http://192.168.0.220:7878
-            key: ${RADARR_KEY}
-            enableQueue: true # optional, defaults to false
+            key: a905325db59743088fe7993af6b6d07a
+            enableQueue: false # optional, defaults to false
 
     - Lidarr:
         href: https://lidarr.local.robhagen.net/
@@ -96,7 +99,10 @@
         icon: prowlarr.svg
         server: my-docker
         container: prowlarr
-
+        widget:
+            type: prowlarr
+            url: http://192.168.0.220:9696
+            key: 84ceada06d7e4582b3577f5518f92e68
 - Cloud Tools:
     - NextCloud:
         href: https://nextcloud.local.robhagen.net/
