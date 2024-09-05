@@ -67,9 +67,9 @@
         server: my-docker
         container: sonarr
         widget:
-            type: radarr
+            type: sonarr
             url: https://192.168.0.220:8989
-            key: ${SONARR_KEY}
+            key: 649cff2a58214e7a931f54a340a37e3e
             enableQueue: true # optional, defaults to false
 
     - Radarr:
@@ -78,6 +78,12 @@
         icon: radarr.svg
         server: my-docker
         container: radarr
+        widget:
+            type: radarr
+            url: http://192.168.0.220:7878
+            key: ${RADARR_KEY}
+            enableQueue: true # optional, defaults to false
+
     - Lidarr:
         href: https://lidarr.local.robhagen.net/
         description: music management
