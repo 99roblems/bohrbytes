@@ -114,10 +114,9 @@
         widget:
             type: sabnzbd
             url: http://192.168.0.220:8100
-            username: rob
-            password: clea1211
+            key: 7292a0176d514e6287a478179a7ebcf0
     - Qbit:
-        href: https://qbittorrent.local.robhagen.net/
+        href: https://qbit.local.robhagen.net/
         description: nzb client
         icon: qbittorrent.svg
         server: my-docker
@@ -125,7 +124,8 @@
         widget:
             type: sabnzbd
             url: http://192.168.0.220:8200
-            key: 7292a0176d514e6287a478179a7ebcf0
+            username: rob
+            password: clea1211
 - Cloud Tools:
     - NextCloud:
         href: https://nextcloud.local.robhagen.net/
