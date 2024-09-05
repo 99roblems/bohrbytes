@@ -244,6 +244,7 @@ services:
       - "${WEBUI_PORT_PROWLARR:?err}:9696"      # Prowlarr WebUI
     restart: unless-stopped
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
       - "traefik.http.routers.prowlarr.entrypoints=http"
       - "traefik.http.routers.prowlarr.middlewares=https-redirectscheme@file"
