@@ -255,7 +255,7 @@ services:
       - proxy
 
   readarr:
-    image: lscr.io/linuxserver/readarr:develop
+    image: linuxserver/readarr:develop
     container_name: readarr
     restart: unless-stopped
     volumes:
