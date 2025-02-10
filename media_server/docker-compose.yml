@@ -151,7 +151,7 @@ services:
       - ${FOLDER_FOR_DOCKER_DATA}/sabnzbd:/config
       - ${FOLDER_FOR_MEDIA}/usenet:/data/usenet
     ports:
-      - ${WEBUI_PORT_SABNZBD}:8080
+      - "${WEBUI_PORT_SABNZBD:?err}:8080"
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -160,8 +160,8 @@ services:
       - "traefik.http.routers.sabnzbd.middlewares=https-redirectscheme@file"
       - "traefik.http.routers.sabnzbd-secure.rule=Host(`sabnzbd.${DOMAIN}`)"
       - "traefik.http.routers.sabnzbd-secure.tls=true"
-      - "traefik.http.routers.sabnzbd-secure.service=nzbget"
-      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8100"
+      - "traefik.http.routers.sabnzbd-secure.service=sabnzbd"
+      - "traefik.http.services.sabnzbd.loadbalancer.server.port=8080"
     networks:
       - proxy
   
