@@ -6,6 +6,12 @@ services:
     container_name: gluetun
     cap_add:
       - NET_ADMIN
+    healthcheck:
+      test: ["CMD-SHELL", "ping -c 1 8.8.8.8 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless_stopped
     ports:
       - "8888:8888/tcp"                         # Gluetun Local Network HTTP proxy
       - "8388:8388/tcp"                         # Gluetun Local Network Shadowsocks
@@ -57,11 +63,11 @@ services:
       - ${FOLDER_FOR_DOCKER_DATA}/qbittorrent:/config
       - ${FOLDER_FOR_MEDIA}/torrents:/data/torrents
     depends_on:
-      - gluetun
+      gluetun:
+        condition: service_healthy
     restart: unless-stopped
     env_file:
       - .env
-
 
   sonarr:
     image: linuxserver/sonarr
