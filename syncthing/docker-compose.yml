@@ -13,8 +13,8 @@ services:
     volumes:
       - /home/rob/projects/docker/syncthing/config:/config
       - /home/rob/resources/sync:/sync
-      - /home/rob/projects/docker/syncthing/test_sync1:/test_sync1
-      - /home/rob/projects/docker/syncthing/test_sync2:/test_sync2
+      - /tank/users/rob_sync:/rob_sync
+      - /tank/users/natalie/nat_sync:/nat_sync
     ports:
       - 8384:8384  # Web GUI
       - 22000:22000/tcp  # Syncthing protocol
