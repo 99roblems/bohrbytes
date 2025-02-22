@@ -4,7 +4,6 @@ services:
   syncthing:
     image: linuxserver/syncthing
     container_name: syncthing
-    user: "1000:1000"
     environment:
       - PUID=1000  # Set your user ID
       - PGID=1000  # Set your group ID
