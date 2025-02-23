@@ -23,6 +23,9 @@ services:
       - "traefik.http.routers.prometheus-secure.service=prometheus"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
       - "traefik.docker.network=proxy"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest

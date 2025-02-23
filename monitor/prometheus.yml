@@ -12,8 +12,8 @@ scrape_configs:
 
   - job_name: 'bohrbytes_docker'
     static_configs:
-      - targets: ['127.0.0.1:9323']
+      - targets: ['host.docker.internal:9323']
 
   - job_name: 'cadvisor'
     static_configs:
-      - targets: ['cadvisor:9080']
+      - targets: ['cadvisor:8080']
