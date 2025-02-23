@@ -34,7 +34,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.node_exporter.entrypoints=http"
       - "traefik.http.services.node_exporter.loadbalancer.server.port=9100"
-      - "traefik.http.routers.node_exporter-secure.rule=Host(`node-exporter.example.com`)"
+      - "traefik.http.routers.node_exporter-secure.rule=Host(`node-exporter.local.robhagen.net`)"
       - "traefik.http.routers.node_exporter-secure.tls=true"
       - "traefik.docker.network=proxy"
     network_mode: host
