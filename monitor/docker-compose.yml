@@ -41,9 +41,7 @@ services:
       - "traefik.http.routers.node_exporter-secure.rule=Host(`node-exporter.local.robhagen.net`)"
       - "traefik.http.routers.node_exporter-secure.tls=true"
       - "traefik.docker.network=proxy"
-
-
-services:
+      
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
