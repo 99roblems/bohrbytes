@@ -32,6 +32,8 @@ services:
     restart: unless-stopped
     networks:
       - proxy
+    ports:
+      - "9100:9100"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.node_exporter.entrypoints=http"
