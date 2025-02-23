@@ -4,6 +4,9 @@ services:
     container_name: prometheus
     env_file:
       - .env
+    environment:
+      - PUID=1000  # Set your user ID
+      - PGID=1000  # Set your group ID
     restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
