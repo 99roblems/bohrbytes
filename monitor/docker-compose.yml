@@ -67,10 +67,18 @@ services:
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
+    command:
+      - '--docker_only=true'
+      - '--housekeeping_interval=30s'
+      - '--disable_metrics=advtcp,referenced_memory'
+    privileged: true
+    devices:
+      - /dev/kmsg
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /sys/fs/cgropu:/sys/fs/cgroup:ro
     ports:
       - 9080:8080
     networks:
@@ -81,7 +89,7 @@ services:
       - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.local.robhagen.net`)"
       - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
       - "traefik.docker.network=proxy"
-
+    restart: unless-stopped
 
 networks:
   proxy:
