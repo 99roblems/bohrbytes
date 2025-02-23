@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.prometheus-secure.rule=Host(`${PROMETHEUS_HOST_NAME}`)"
       - "traefik.http.routers.prometheus-secure.tls=true"
       - "traefik.http.routers.prometheus-secure.service=prometheus"
-      - "traefik.http.services.prometheusloadbalancer.server.port=9090"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
       - "traefik.docker.network=proxy"
 
   node_exporter:
@@ -33,8 +33,11 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.node_exporter.entrypoints=http"
       - "traefik.http.services.node_exporter.loadbalancer.server.port=9100"
+      - "traefik.http.routers.node_exporter-secure.rule=Host(`node-exporter.example.com`)"
+      - "traefik.http.routers.node_exporter-secure.tls=true"
       - "traefik.docker.network=proxy"
-
+    network_mode: host
+    
 networks:
   proxy:
     external: true
