@@ -78,7 +78,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /sys/fs/cgropu:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     ports:
       - 9080:8080
     networks:
