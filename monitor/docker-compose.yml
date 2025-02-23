@@ -42,6 +42,30 @@ services:
       - "traefik.http.routers.node_exporter-secure.tls=true"
       - "traefik.docker.network=proxy"
 
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "3000:3000"  # Access Grafana via http://localhost:3000
+    networks:
+      - proxy
+    volumes:
+      - ./grafana:/var/lib/grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.entrypoints=http"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.local.robhagen.net`)"
+      - "traefik.http.routers.grafana.middlewares=https-redirectscheme@file"
+      - "traefik.http.routers.grafana-secure.rule=Host(`grafana.local.robhagen.net`)"
+      - "traefik.http.routers.grafana-secure.tls=true"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+      - "traefik.docker.network=proxy"
+
 networks:
   proxy:
     external: true
