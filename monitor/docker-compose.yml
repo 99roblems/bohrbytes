@@ -70,7 +70,6 @@ services:
     command:
       - '--docker_only=true'
       - '--housekeeping_interval=30s'
-      - '--disable_metrics=referenced_memory'
     privileged: true
     devices:
       - /dev/kmsg
