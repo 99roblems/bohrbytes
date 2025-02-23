@@ -78,7 +78,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cadvisor.entrypoints=http"
-      - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.yourdomain.com`)"
+      - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.local.robhagen.net`)"
       - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
       - "traefik.docker.network=proxy"
 
