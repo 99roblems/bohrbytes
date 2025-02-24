@@ -72,12 +72,11 @@ services:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     command:
-      - '--docker_only=false'
+      - '--docker_only=true'
       - '--housekeeping_interval=30s'
       - '--enable_metrics=cpu,disk,network,memory,process'
-      - '--store_container_labels=true'
-      - '--disable_metrics=percpu,hugetlb,sched'
-      - '--cgroup_root=/sys/fs/cgroup'
+      - '--disable_metrics=udp'
+      - '--logtostderr=true'
     privileged: true
     devices:
       - /dev/kmsg
