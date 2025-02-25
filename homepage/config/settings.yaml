@@ -12,3 +12,17 @@ base: https://homepage.local.robhagen.net
 
 background:
   image: /images/backgrounds/F0ryWeA.jpeg
+
+layout:
+  Media:
+    style: row
+    columns: 2
+  Cloud Apps:
+    style: row
+    columns: 4
+  Server Admin:
+    style: row
+    columns: 4
+  Media Backend:
+    style: row
+    columns: 3

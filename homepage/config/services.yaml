@@ -23,13 +23,6 @@
             type: overseerr
             url: http://192.168.0.220:5055
             key: MTcyNDcxMTIwNTg4MzI0MDYxMTU3LTA3YTctNDIxNC05MDk0LTE0ZjQxMDcwOWRmOA==
-- Data Science:
-    - JupyterLab:
-        href: http://jupyter.local.robhagen.net
-        description: jupyterLab environment
-        icon: jupyter.svg
-        server: my-docker 
-        container: jupyterlab
 
 - Server Admin:
     - Pihole:
@@ -55,14 +48,8 @@
         icon: portainer.svg
         server: my-docker
         container: portainer
-    - Syncthing:
-        href: https://syncthing.local.robhagen.net
-        description: network file sync tools
-        icon: syncthing.svg
-        server: my-docker
-        container: syncthing
 
-- Stack Admin:
+- Media Backend:
     - Sonarr:
         href: https://sonarr.local.robhagen.net/
         description: series management
@@ -126,10 +113,23 @@
             url: http://192.168.0.220:8200
             username: rob
             password: clea1211
-- Cloud Tools:
+
+- Cloud Apps:
     - NextCloud:
         href: https://nextcloud.local.robhagen.net/
         description: cloud file suite
         icon: nextcloud.svg
         server: my-docker
         container: nextcloud-aio-nextcloud
+    - Syncthing:
+        href: https://syncthing.local.robhagen.net
+        description: network file sync tools
+        icon: syncthing.svg
+        server: my-docker
+        container: syncthing
+    - JupyterLab:
+        href: http://jupyter.local.robhagen.net
+        description: jupyterLab environment
+        icon: jupyter.svg
+        server: my-docker 
+        container: jupyterlab
