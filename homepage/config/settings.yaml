@@ -14,15 +14,17 @@ background:
   image: /images/backgrounds/F0ryWeA.jpeg
 
 layout:
-  Media:
-    style: row
-    columns: 2
   Cloud Apps:
     style: row
     columns: 3
   Server Admin:
     style: row
     columns: 3
+  Media:
+    initiallyCollapsed: true
+    style: row
+    columns: 2
   Media Backend:
+    initiallyCollapsed: true
     style: row
     columns: 3
