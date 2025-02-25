@@ -19,10 +19,10 @@ layout:
     columns: 2
   Cloud Apps:
     style: row
-    columns: 4
+    columns: 3
   Server Admin:
     style: row
-    columns: 4
+    columns: 3
   Media Backend:
     style: row
     columns: 3
