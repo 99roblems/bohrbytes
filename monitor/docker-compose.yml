@@ -74,12 +74,10 @@ services:
     command:
       - '--docker_only=true'
       - '--housekeeping_interval=30s'
-      - '--enable_metrics=cpu,disk,network,memory,process,load,uptime'
-      - '--disable_metrics=udp'
+      - '--enable_metrics=cpu,disk,network,memory,process,percpu,cpuLoad,diskIO'
+      - '--disable_metrics=advtcp,tcp,udp,hugetlb,resctrl,sched,referenced_memory,oom_event'
+      - '--store_container_labels=true'
       - '--logtostderr=true'
-      - '--store_container_labels-true'
-      - '--event_storage_event_limit=default=0'
-      - '--event_storage_age_limit=default=0'
     privileged: true
     devices:
       - /dev/kmsg
@@ -88,19 +86,13 @@ services:
       - /:/rootfs:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk:/dev/disk:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     ports:
-      - 9080:8080
+      - "9080:8080"
     networks:
       - proxy
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.cadvisor.entrypoints=http"
-    #   - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.local.robhagen.net`)"
-    #   - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
-    #   - "traefik.docker.network=proxy"
     restart: unless-stopped
+
 
 networks:
   proxy:
