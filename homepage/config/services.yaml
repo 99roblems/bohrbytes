@@ -104,12 +104,12 @@
             key: 7292a0176d514e6287a478179a7ebcf0
     - Qbit:
         href: https://qbit.local.robhagen.net/
-        description: nzb client
+        description: qbit client
         icon: qbittorrent.svg
         server: my-docker
-        container: sabnzbd
+        container: qbittorrent
         widget:
-            type: sabnzbd
+            type: qbittorrent
             url: http://192.168.0.220:8200
             username: rob
             password: clea1211
