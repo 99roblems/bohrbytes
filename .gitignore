@@ -14,4 +14,4 @@ freecad
 *.log
 .vscode
 traefik/data/acme.json
-wireguard/
+**/wireguard/
